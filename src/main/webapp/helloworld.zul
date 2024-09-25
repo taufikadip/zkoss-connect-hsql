@@ -1,0 +1,164 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul"?>
+
+<zk>
+<!--    <window title="Embedded Style" border="normal" width="200px">-->
+<!--        Hello, Embedded!-->
+<!--    </window>-->
+
+<!--    <toolbarbutton label="More info" onClick="info.doPopup()"/><span>-->
+<!--    <window id="info" visible="false" width="120px" border="normal" position="parent">-->
+<!--            Here is more information-->
+<!--    </window></span>-->
+
+<!--        <window id="win" title="Hi!" border="normal" width="200px">-->
+<!--            <caption>-->
+<!--                <toolbarbutton label="Help"/>-->
+<!--            </caption>-->
+<!--            <checkbox label="Hello, Wolrd!"/>-->
+<!--        </window>-->
+
+<!--        <button label="Overlap" onClick="win.doOverlapped();"/>-->
+<!--        <button label="Popup" onClick="win.doPopup();"/>-->
+<!--        <button label="Modal" onClick="win.doModal();"/>-->
+<!--        <button label="Embed" onClick="win.doEmbedded();"/>-->
+<!--        <button label="Highlighted" onClick="win.doHighlighted();"/>-->
+
+    <style>
+        .z-icon-male { color: green; }
+
+        .z-icon-female { color: red; }
+
+        .flag-indonesia {
+        background-image: url('/resources/flags/indonesia.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+
+        .flag-usa {
+        background-image: url('/resources/flags/usa.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+
+        .flag-japan {
+        background-image: url('/resources/flags/japan.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+    </style>
+
+    <zscript>
+        public void changeSubmitStatus() {
+        boolean isChecked = ((Checkbox) self.getFellow("acceptTermBox")).isChecked();
+        Button submitButton = (Button) self.getFellow("submitButton");
+
+        if (isChecked) {
+        submitButton.setDisabled(false);
+        submitButton.setIconSclass("z-icon-check");
+        } else {
+        submitButton.setDisabled(true);
+        submitButton.setIconSclass("");
+            }
+        }
+    </zscript>
+
+<!--    <window title="Welcome! New User" border="none" width="480px" position="center" mode="embedded"-->
+<!--            style="backgorund-color: #ffffff;"-->
+<!--            self="@define(content)">-->
+    <window title="Welcome! New User" border="none" width="480px" position="center" mode="embedded"
+            viewModel="@id('vm') @init('com.fif.SearchViewModel')" self="@define(content)"
+            apply="org.zkoss.bind.BindComposer">
+
+        <zscript>
+            public void resetButton() {
+                name.setRawValue("");
+                name.setConstraint("no empty");
+                gender.setSelectedItem(null);
+                birthday.setRawValue("");
+                birthday.setConstraint("no empty, no future, no today");
+                employment.setRawValue("");
+                employment.setConstraint("no empty");
+                country.setRawValue("");
+                country.setConstraint("no empty");
+                acceptTermBox.setChecked(false);
+            }
+        </zscript>
+
+        <grid>
+            <auxhead>
+                <auxheader iconSclass="z-icon-user" label="Registration Form" colspan="2"/>
+            </auxhead>
+            <columns>
+                <column/><column width="256px"/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="User Name"/>
+                    <textbox value="@save(vm.name)" id="name" width="99%" constraint="no empty" placeholder="(ex: Topik)"/>
+                </row>
+                <row>
+                    <label value="Gender"/>
+                    <radiogroup id="gender" selectedItem="@save(vm.gender)">
+                        <radio label="Male" iconSclass="z-icon-male" value="Male"/>
+                        <radio label="Female" iconSclass="z-icon-female" value="Female"/>
+                    </radiogroup>
+                </row>
+                <row>
+                    <label value="Birthday"/>
+                    <datebox value="@save(vm.birthday)" id="birthday" buttonVisible="true" width="100%" placeholder="Select Birth Date" constraint="no empty, no today, no future"/>
+                </row>
+                <row>
+                    <label value="Employment"/>
+                    <combobox value="@save(vm.employment)" id="employment" placeholder="Search or select" constraint="no empty">
+                        <comboitem label="Fulltime"/>
+                        <comboitem label="Parttime"/>
+                        <comboitem label="Internship"/>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Country"/>
+                    <combobox value="@save(vm.country)" id="country" placeholder="Search or select" constraint="no empty">
+                        <comboitem label="Indonesia" sclass="flag-indonesia" />
+                        <comboitem label="USA" sclass="flag-usa" />
+                        <comboitem label="Japan" sclass="flag-japan" />
+                    </combobox>
+                </row>
+                <row align="center" spans="2">
+                    <span>
+                        <checkbox id="acceptTermBox" onCheck="changeSubmitStatus()" label="Accept Term of Use"/>
+                        <label popup="popup_id, position=end_after" style="cursor: pointer">(Click for detail)</label>
+
+                        <popup id="popup_id">
+                            <vbox>
+                                Term of Use
+                                <toolbarbutton label="This is the term of use ZK your killer Web application now!"
+                                               href="http://www.zkoss.org" />
+                            </vbox>
+                        </popup>
+<!--                        <label value="More info" onClick="info.doPopup()"/>-->
+                    </span>
+                </row>
+                <row spans="2" align="center">
+                    <span>
+                        <label popup="popuphelp, position=end_after" style="cursor: pointer">Help</label>
+
+                        <popup id="popuphelp">
+                            <vbox>
+                                HELPP
+                                <toolbarbutton label="This is the Help Popup "
+                                               href="http://www.zkoss.org" />
+                            </vbox>
+                        </popup>
+                        <button id="resetButton" label="Reset" onClick="resetButton()"/>
+                        <button id="submitButton" label="Submit" disabled="true"
+                                onClick="@command('add')"/>
+                    </span>
+                </row>
+            </rows>
+        </grid>
+    </window>
+
+</zk>

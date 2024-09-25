@@ -1,0 +1,62 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul"?>
+
+<zk>
+    <window title="Search" border="none" width="1080px" onOK="@command('search')"
+            viewModel="@id('vm') @init('com.fif.SearchViewModel')" onNotify="vm.onPersonAdded($event)"
+            self="@define(content)">
+        Keyword:
+        <textbox value="@save(vm.keyword)" />
+        <button label="Search" iconSclass="z-icon-search" onClick="@command('search')"/>
+<!--        model="@load(vm.personList)" -->
+        <button label="Delete" iconSclass="z-icon-trash" onClick="@command('deletePerson')" style="background-color:red;"/>
+        <listbox model="@init(vm.personList)" emptyMessage="No Person found in the result" rows="3"
+        selectedItem="@save(vm.selectedPerson)" >
+            <listhead sizable="true">
+                <listheader label="Id" />
+                <listheader label="Name" />
+                <listheader label="Gender" />
+                <listheader label="Birthday" />
+                <listheader label="Employment" />
+                <listheader label="Country" />
+                <listheader label="Action" />
+            </listhead>
+            <template name="model">
+                <listitem>
+                    <listcell label="@init(each.id)"/>
+                    <listcell label="@init(each.name)"/>
+                    <listcell label="@init(each.gender)"/>
+                    <listcell label="@init(each.birthday)"/>
+                    <listcell label="@init(each.employment)"/>
+                    <listcell label="@init(each.country)"/>
+                    <listcell>
+                        <button label="Update" onClick="@command('update', id=each.id)" />
+                    </listcell>
+                </listitem>
+            </template>
+        </listbox>
+        <hlayout style="margin-top:20px" width="100%">
+            <vlayout hflex="1">
+                <listbox emptyMessage="Selected User will appear here">
+                    <listhead sizable="true">
+                        <listheader label="Name" />
+                        <listheader label="Gender" />
+                        <listheader label="Birthday" />
+                        <listheader label="Employment" />
+                        <listheader label="Country" />
+                    </listhead>
+                        <listitem>
+                            <listcell><label value="@load(vm.selectedPerson.name)"/></listcell>
+                            <listcell><label value="@load(vm.selectedPerson.gender)"/></listcell>
+                            <listcell><label value="@load(vm.selectedPerson.birthday)"/></listcell>
+                            <listcell><label value="@load(vm.selectedPerson.employment)"/></listcell>
+                            <listcell><label value="@load(vm.selectedPerson.country)"/></listcell>
+                        </listitem>
+                </listbox>
+<!--                <label value="@load(vm.selectedPerson.gender)"/>-->
+<!--                <label value="@load(vm.selectedPerson.birthday)"/>-->
+<!--                <label value="@load(vm.selectedPerson.employment)"/>-->
+<!--                <label value="@load(vm.selectedPerson.country)"/>-->
+            </vlayout>
+        </hlayout>
+    </window>
+</zk>

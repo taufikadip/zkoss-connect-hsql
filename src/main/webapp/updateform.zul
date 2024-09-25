@@ -1,0 +1,142 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul"?>
+
+<zk>
+    <style>
+        .z-icon-male { color: green; }
+
+        .z-icon-female { color: red; }
+
+        .flag-indonesia {
+        background-image: url('/resources/flags/indonesia.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+
+        .flag-usa {
+        background-image: url('/resources/flags/usa.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+
+        .flag-japan {
+        background-image: url('/resources/flags/japan.png');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        }
+    </style>
+
+    <zscript>
+        public void changeSubmitStatus() {
+        boolean isChecked = ((Checkbox) self.getFellow("acceptTermBox")).isChecked();
+        Button submitButton = (Button) self.getFellow("submitButton");
+
+        if (isChecked) {
+        submitButton.setDisabled(false);
+        submitButton.setIconSclass("z-icon-check");
+        } else {
+        submitButton.setDisabled(true);
+        submitButton.setIconSclass("");
+        }
+        }
+    </zscript>
+
+    <window title="Edit person" border="none" width="480px" position="center" mode="overlapped"
+            viewModel="@id('vm') @init('com.fif.EditViewModel')" self="@define(content)"
+            apply="org.zkoss.bind.BindComposer">
+
+        <zscript>
+            public void resetButton() {
+                name.setRawValue("");
+                name.setConstraint("no empty");
+                gender.setSelectedItem(null);
+                birthday.setRawValue("");
+                birthday.setConstraint("no empty, no future, no today");
+                employment.setRawValue("");
+                employment.setConstraint("no empty");
+                country.setRawValue("");
+                country.setConstraint("no empty");
+            }
+        </zscript>
+
+        <grid>
+            <auxhead>
+                <auxheader iconSclass="z-icon-user" label="Registration Form" colspan="2"/>
+            </auxhead>
+            <columns>
+                <column/><column width="256px"/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="User Name"/>
+                    <textbox value="@load(vm.name) @save(vm.name)" id="name"
+                             width="99%" constraint="no empty" placeholder="(ex: Topik)"/>
+                </row>
+                <row>
+                    <label value="Gender"/>
+                    <radiogroup id="gender" selectedItem="@load(vm.gender) @save(vm.gender)">
+                        <radio label="Male" iconSclass="z-icon-male" value="Male"/>
+                        <radio label="Female" iconSclass="z-icon-female" value="Female"/>
+                    </radiogroup>
+                </row>
+                <row>
+                    <label value="Birthday"/>
+                    <datebox value="@save(vm.birthday) @load(vm.birthday)"
+                             id="birthday" buttonVisible="true" width="100%" placeholder="Select Birth Date"
+                             constraint="no empty, no today, no future"/>
+                </row>
+                <row>
+                    <label value="Employment"/>
+                    <combobox value="@save(vm.employment) @load(vm.employment)"
+                              id="employment" placeholder="Search or select" constraint="no empty">
+                        <comboitem label="Full-time"/>
+                        <comboitem label="Part-time"/>
+                        <comboitem label="Internship"/>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Country"/>
+                    <combobox value="@save(vm.country) @load(vm.country)"
+                              id="country" placeholder="Search or select" constraint="no empty">
+                        <comboitem label="Indonesia" sclass="flag-indonesia" />
+                        <comboitem label="USA" sclass="flag-usa" />
+                        <comboitem label="Japan" sclass="flag-japan" />
+                    </combobox>
+                </row>
+                <row spans="2" align="center">
+                    <span>
+                        <label popup="popuphelp, position=end_after" style="cursor: pointer">Help</label>
+                        <popup id="popuphelp">
+                            <vbox>
+                                HELPP
+                                <toolbarbutton label="This is the Help Popup "
+                                               href="http://www.zkoss.org" />
+                            </vbox>
+                        </popup>
+                        <button id="resetButton" label="Reset" onClick="resetButton()"/>
+<!--                        <button id="submitButton" label="Submit" disabled="true"-->
+<!--                                onClick="@command('updatePerson')"/>-->
+                        <button popup="popupverif" label="Submit"/>
+                        <popup id="popupverif">
+                            <vbox>
+                                Are you sure want to save changes?
+                                <button id="submitButton" label="Continue"
+                                        onClick="@command('updatePerson')"/>
+                            </vbox>
+                        </popup>
+                    </span>
+                </row>
+<!--                <row>-->
+<!--                    <button label="Question" width="100px">-->
+<!--                        <attribute name="onClick"><![CDATA[-->
+<!--                                Messagebox.show("Question is pressed. Are you sure?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);-->
+<!--                            ]]>-->
+<!--                        </attribute>-->
+<!--                    </button>-->
+<!--                </row>-->
+            </rows>
+        </grid>
+    </window>
+</zk>

@@ -1,0 +1,82 @@
+
+
+<zk>
+    <style>
+        .no-padding {
+        padding: 0 !important;
+        }
+        .sidebar {
+        background-color: #0166ad;
+        color: white;
+        height: 100%;
+        gap: 100px;
+        }
+        .sidebar-button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: left;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 280px;
+        margin-bottom: 16px;
+        }
+        .sidebar-button:hover {
+        background-color: #003559;
+        }
+        .header-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: black;
+        }
+        .table-header {
+        background-color: #F5F6FA;
+        font-weight: bold;
+        }
+        .action-buttons {
+        display: flex;
+        justify-content: space-around;
+        }
+        .table-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        }
+    </style>
+
+    <borderlayout width="100%" height="100%" vflex="min">
+
+<!--        Sidebar -->
+        <west width="280px" border="none" sclass="sidebar no-padding" >
+            <vbox>
+                <div height="36px" style="margin-top: 24px; margin-bottom: 64px;">
+                <label value="Dashboard new" style="height: 64px; font-weight: bold; font-size: 24px; color: white; margin: 18px; margin-bottom: 64px;"/>
+                </div>
+                <button id="goToIndex" label="Index Page" width="100%" href="index.zul" sclass="sidebar-button"/>
+                <button id="goToForm" label="Form Page" width="100%" href="helloworld.zul" sclass="sidebar-button"/>
+                <button id="goToTable" label="Table Page" width="100%" href="searchMvvm.zul" sclass="sidebar-button"/>
+            </vbox>
+        </west>
+
+        <center border="none" style="background:#F9FCFF;" sclass="no-padding">
+
+            <borderlayout>
+
+                <north vflex="min" style="background:#F9FCFF;" border="none" sclass="no-padding">
+                    <label value="CRUD for Employee" style="margin-top: 8px; margin-bottom: 64px; color: #0166ad; font-size: 32px; font-weight: bold; margin: 20px;" />
+                </north>
+
+                <center vflex="min" border="none" style="background:#FFFFFF;" self="@insert(content)">
+                </center>
+
+                <south vflex="min" border="none" style="background:#F9FCFF;">
+                    <div height="20px"  style="color:gray; text-alignment:center;">Footer</div>
+                </south>
+
+            </borderlayout>
+
+        </center>
+
+    </borderlayout>
+</zk>
