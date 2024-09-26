@@ -98,7 +98,7 @@ public class Person {
             return false;
         if(getClass() != obj.getClass())
             return false;
-        Log other = (Log)obj;
+        Person other = (Person)obj;
         if(id == null) {
             if(other.id != null)
                 return false;
