@@ -1,0 +1,9 @@
+<zk>
+    <window title="Forbidden">
+        <vbox>
+            <label>You are not authorized to access this Page</label>
+            <a href="/logout" label=" LOGOUT"/>
+            <button label="Back To Homepage" width="240px" href="searchMvvm.zul"/>
+        </vbox>
+    </window>
+</zk>

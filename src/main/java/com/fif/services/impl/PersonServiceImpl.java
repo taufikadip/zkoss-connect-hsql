@@ -1,92 +1,43 @@
 package com.fif.services.impl;
 
 import com.fif.entity.Person;
+import com.fif.entity.PersonLogin;
 import com.fif.repository.PersonRepository;
 import com.fif.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service("personService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class PersonServiceImpl implements PersonService {
 
-//    private PersonRepository repository = new PersonRepository();
-//
-//    private List<Person> personList;
-//
-////    private static int id = 1;
-//
-//    public PersonServiceImpl() {
-//        personList = repository.findAll();
-//    }
-//
-//    public List<Person> findAll() { return personList; }
-//
-//    public List<Person> search(String keyword) {
-//        List<Person> result = new LinkedList<Person>();
-//        if (keyword==null || equals(keyword)){
-//            result = personList;
-//        } else {
-//            for (Person p: personList) {
-//                if (p.getName().toLowerCase().contains(keyword.toLowerCase())) {
-//                    result.add(p);
-//                } else if (p.getGender().equalsIgnoreCase(keyword)) {
-//                    result.add(p);
-//                }
-//            }
-//        }
-//        return result;
-//    }
-//
-//    @Override
-//    public void delete(Integer id) {
-//        Person personToRemove = null;
-//
-//        // Mencari person berdasarkan id
-//        for (Person person : personList) {
-//            if (person.getId().equals(id)) {
-//                personToRemove = person;
-//                break;
-//            }
-//        }
-//
-//        // Jika person ditemukan, hapus dari daftar
-//        if (personToRemove != null) {
-//            personList.remove(personToRemove);
-//        }
-//    }
-//
-//    @Override
-//    public void addPerson(Integer id, String name, String gender, Date birthday, String employment, String country) {
-//        personList.add(new Person(name, gender, birthday, employment, country));
-//    }
-//
-//    @Override
-//    public Person getById(Integer id) {
-//        // Mencari person berdasarkan id
-//        for (Person person : personList) {
-//            if (person.getId().equals(id)) {
-//                return person;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public void updatePerson(Integer id, String name, String gender, Date birthday, String employment, String country) {
-//        Person personToUpdate = getById(id);
-//        if (personToUpdate != null) {
-//            delete(id);
-//            addPerson(id, name, gender, birthday, employment, country);
-//        }
-//    }
-
     @Autowired
     PersonRepository personRepository;
+//    PersonDao personDao;
+
+//    @Override
+//    public UserDetails loadPersonByUsername(String username) throws UsernameNotFoundException {
+//        try {
+//            PersonLogin personLogin = personRepository.get(username);
+//            Set<GrantedAuthority> authorities = personLogin.getRoles()
+//                    .stream()
+//                    .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
+//            return new org.springframework.security.core.userdetails.User(personLogin.getUsername(), personLogin.getPassword(), authorities);
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Invalid Login");
+//        }
+//    }
 
     public Person addPerson(Person person) {
         return personRepository.save(person);

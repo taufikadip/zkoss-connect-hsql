@@ -49,6 +49,7 @@
 
 <!--        Sidebar -->
         <west width="280px" border="none" sclass="sidebar no-padding" >
+            <span>
             <vbox>
                 <div height="36px" style="margin-top: 24px; margin-bottom: 64px;">
                 <label value="Dashboard new" style="height: 64px; font-weight: bold; font-size: 24px; color: white; margin: 18px; margin-bottom: 64px;"/>
@@ -57,6 +58,12 @@
                 <button id="goToForm" label="Form Page" width="100%" href="helloworld.zul" sclass="sidebar-button"/>
                 <button id="goToTable" label="Table Page" width="100%" href="searchMvvm.zul" sclass="sidebar-button"/>
             </vbox>
+                <vbox>
+                    <button label="Logout" width="100%" href="/logout" style="color: #ff4051" sclass="sidebar-button" />
+                </vbox>
+            </span>
+
+<!--            <button id="goToTable" label="Logout" width="100%" sclass="sidebar-button"/>-->
         </west>
 
         <center border="none" style="background:#F9FCFF;" sclass="no-padding">

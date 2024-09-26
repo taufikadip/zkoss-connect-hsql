@@ -1,0 +1,16 @@
+com\fif\SearchViewModel.class
+com\fif\services\impl\LogDao.class
+com\fif\config\SecurityConfig.class
+com\fif\services\impl\PersonServiceImpl.class
+com\fif\services\MyService.class
+com\fif\MyViewModel.class
+com\fif\EditViewModel.class
+com\fif\entity\PersonLogin.class
+com\fif\entity\Role.class
+com\fif\services\impl\PersonLoginServiceImpl.class
+com\fif\entity\Person.class
+com\fif\Main.class
+com\fif\repository\PersonRepository.class
+com\fif\entity\Log.class
+com\fif\services\PersonService.class
+com\fif\services\impl\MyServiceImpl.class
